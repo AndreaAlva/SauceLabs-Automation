@@ -25,6 +25,8 @@ public class Homepage {
 
     @FindBy(id = "add-to-cart-sauce-labs-backpack")
     WebElement sauceLabsBackPackAddToCartButton;
+    @FindBy(id="add-to-cart-sauce-labs-bike-light")
+    WebElement bikeLightButton;
 
     @FindBy(id = "remove-sauce-labs-backpack")
     WebElement sauceLabsBackPackRemoveToCartButton;
@@ -74,6 +76,7 @@ public class Homepage {
     public void clickOnAddSauceLabsBackPackToCartButton(){
         sauceLabsBackPackAddToCartButton.click();
     }
+    public void clickBikeLight(){bikeLightButton.click();}
 
     public void clickOnRemoveSauceLabsBackPackToCartButton(){
         sauceLabsBackPackRemoveToCartButton.click();
@@ -90,4 +93,9 @@ public class Homepage {
         wait.until(ExpectedConditions.elementToBeClickable(logoutSidebarButton));
         aboutLinkButton.click();
     }
+    public String getNumberCart()
+    {
+        return cartIcon.getText();
+    }
+
 }

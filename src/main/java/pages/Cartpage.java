@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cartpage {
@@ -29,6 +30,15 @@ public class Cartpage {
 
     @FindBy(id="continue")
     WebElement continueButton;
+
+    @FindBy(className = "inventory_item_name")
+    List<WebElement> cartProductsList;
+    @FindBy(className = "inventory_item_price")
+    List<WebElement> cartProductsPrices;
+    @FindBy(id = "remove-sauce-labs-backpack")
+    WebElement removeBackpack;
+    @FindBy(id = "remove-sauce-labs-bike-light")
+    WebElement removeBikelight;
 
     public Cartpage(WebDriver driver){
         this.driver=driver;
@@ -56,4 +66,32 @@ public class Cartpage {
     public void setLastName(String lastname) {lastNameTextBox.sendKeys(lastname);}
     public void setZipCode(String zipcode) {zipTextBox.sendKeys(zipcode);}
     public void clickContinueButton(){continueButton.click();}
+
+    public List<String> getCartProductsList()
+    {
+        List<String> items=new ArrayList<>();
+        for(WebElement item: cartProductsList)
+        {
+            String itemPriceText = item.getText();
+            items.add(itemPriceText);
+
+        }
+        return items;
+    }
+    public List<String> getCartProductsPricesList()
+    {
+        List<String> items=new ArrayList<>();
+        for(WebElement item: cartProductsPrices)
+        {
+            String itemPriceText = item.getText();
+            items.add(itemPriceText);
+
+        }
+        return items;
+    }
+    public void removeProducts()
+    {
+        removeBackpack.click();
+        removeBikelight.click();
+    }
 }

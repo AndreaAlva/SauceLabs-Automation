@@ -1,9 +1,12 @@
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.WebElement;
 import pages.Cartpage;
 import pages.Homepage;
 import pages.LoginPage;
 import utilities.DriverManager;
+
+import java.util.List;
 
 public class CartTests extends BaseTest {
     @Test
@@ -73,6 +76,32 @@ public class CartTests extends BaseTest {
         cartpage.setZipCode("a");
         cartpage.clickContinueButton();
         Assert.assertFalse(cartpage.getTitlePageText().equals("CHECKOUT: OVERVIEW"));
+
+    }
+    @Test
+    public void verifyAddingRemovingTest()
+    {
+        logging();
+        Homepage homepage= new Homepage(DriverManager.getDriver().driver);
+        homepage.clickOnAddSauceLabsBackPackToCartButton();
+        homepage.clickBikeLight();
+        homepage.clickCartIcon();
+        Cartpage cartpage = new Cartpage(DriverManager.getDriver().driver);
+        List<String> products = cartpage.getCartProductsList();
+        List<String> prices = cartpage.getCartProductsPricesList();
+        Assert.assertEquals("Sauce Labs Backpack", products.get(0));
+        Assert.assertEquals("Sauce Labs Bike Light", products.get(1));
+
+        Assert.assertEquals("$29.99", prices.get(0));
+        Assert.assertEquals("$9.99", prices.get(1));
+
+        Assert.assertEquals("2",homepage.getNumberCart());
+
+        cartpage.removeProducts();
+        Assert.assertTrue(cartpage.getCartProductsList().size()==0);
+        Assert.assertTrue(homepage.getNumberCart().equals(""));
+
+
 
     }
 
